@@ -6,7 +6,7 @@ var path = require('path');
 
 var app = express();
 
-app.set('port',process.env.PORT || 6969);
+app.set('port',process.env.PORT || 8000);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
