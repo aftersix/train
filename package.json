@@ -1,5 +1,5 @@
 {
-  "name": "webapp1",
+  "name": "train",
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
@@ -10,11 +10,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "request": "^2.79.0",
+   	"request": "^2.79.0",
 	"sugar": "^2.0.4",
 	"ejs": "^2.5.6",
-	"express": "^4.14.1",
-	"node": "^6.9.1",
-	"npm": "^3.10.8"
+	"express": "^4.14.1"
+
   }
 }
