@@ -29,29 +29,18 @@ var trainAlerts;
 					var mode = jsonObject['mode'][i];
 					for (var j=0; j<mode['route'].length; j++){
 						var route = mode['route'][j];
-						
 						for (var k=0; k<route['direction'].length; k++){
 							var direction = route['direction'][k];
-							//console.log(route['direction'][k]['direction_name']);
 							for (var l=0; l<direction['trip'].length; l++){
-								//console.log(direction['trip'][l]['trip_name']);
-								
-								direction['trip'][l]['sch_arr_dt'] = Sugar.Date.format(new Date(direction['trip'][l]['sch_arr_dt']*1000),  '{hh}:{mm}');
-								//console.log("Scheduled at: " + direction['trip'][l]['sch_arr_dt']);
-								direction['trip'][l]['pre_dt'] = Sugar.Date.format(new Date(direction['trip'][l]['pre_dt']*1000),  '{hh}:{mm}');
-								
+								direction['trip'][l]['sch_arr_dt'] = Sugar.Date.format(Sugar.Date.create(direction['trip'][l]['sch_arr_dt']*1000)	,  '{hh}:{mm}');							
+								direction['trip'][l]['pre_dt'] = Sugar.Date.format(Sugar.Date.create(direction['trip'][l]['pre_dt']*1000)	,  '{hh}:{mm}');
 								salemSchedule.table.push({train_direction: route['direction'][k]['direction_name'], train_name: direction['trip'][l]['trip_name'], scheduleTime: direction['trip'][l]['sch_arr_dt'],predictedTime:direction['trip'][l]['pre_dt']});
-								//console.log(salemSchedule);
-								
-								
 							}
 						}
 					}
 				  }  
 		  }
-		 
 		 resolve(); 
-		
 		});
 	  });
 	  
