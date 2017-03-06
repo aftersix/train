@@ -28,7 +28,7 @@
 										<tr>
 											<td>Train No:<%= salemSchedule['table'][i]['train_name'] %></td></br>
 											<td>Scheduled Arrival: <%= salemSchedule['table'][i]['scheduleTime'] %> </td></br>
-											<% if(salemSchedule['table'][i]['difference'] > 60000) {%>
+											<% if(salemSchedule['table'][i]['difference'] > 60) {%>
 											<td><b><p style="color:red;">Now: <%= salemSchedule['table'][i]['predictedTime'] %> </p></td></b></br>
 											<% } else { %>
 											<p style="color:green;"><b> On Time </b></p> <%}%>
@@ -52,7 +52,7 @@
 										<tr>
 											<td>Train No:<%= salemSchedule['table'][i]['train_name'] %></td></br>
 											<td>Scheduled Arrival: <%= salemSchedule['table'][i]['scheduleTime'] %> </td></br>
-											<% if(salemSchedule['table'][i]['difference'] > 60000) {%>
+											<% if(salemSchedule['table'][i]['difference'] > 60) {%>
 											<td><b><p style="color:red;">Now: <%= salemSchedule['table'][i]['predictedTime'] %> </p></td></b></br>
 											<% } else { %>
 											<p style="color:green;"><b> On Time </b></p> <%}%>
