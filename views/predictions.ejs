@@ -19,6 +19,7 @@
 					<div class="row">
 						<div class="col-md-6">
 						<h2>To Boston</h2>
+						
 								  <% 
 								   try { 
 										for(var i=0; i<salemSchedule['table'].length; i++) {
@@ -26,8 +27,11 @@
 									%>
 										<tr>
 											<td>Train No:<%= salemSchedule['table'][i]['train_name'] %></td></br>
-											<td>Scheduled Arrival: <%= salemSchedule['table'][i]['scheduleTime'] %></td></br>
-											<td><b>Predicted Arrival: <%= salemSchedule['table'][i]['predictedTime'] %></td></b></br>
+											<td>Scheduled Arrival: <%= salemSchedule['table'][i]['scheduleTime'] %> </td></br>
+											<% if(salemSchedule['table'][i]['difference'] > 60000) {%>
+											<td><b><p style="color:red;">Now: <%= salemSchedule['table'][i]['predictedTime'] %> </p></td></b></br>
+											<% } else { %>
+											<p style="color:green;"><b> On Time </b></p> <%}%>
 										</br>
 										</br>
 										</tr>
@@ -47,8 +51,11 @@
 									%>
 										<tr>
 											<td>Train No:<%= salemSchedule['table'][i]['train_name'] %></td></br>
-											<td>Scheduled Arrival: <%= salemSchedule['table'][i]['scheduleTime'] %></td></br>
-											<td><b>Predicted Arrival: <%= salemSchedule['table'][i]['predictedTime'] %></td></b></br>
+											<td>Scheduled Arrival: <%= salemSchedule['table'][i]['scheduleTime'] %> </td></br>
+											<% if(salemSchedule['table'][i]['difference'] > 60000) {%>
+											<td><b><p style="color:red;">Now: <%= salemSchedule['table'][i]['predictedTime'] %> </p></td></b></br>
+											<% } else { %>
+											<p style="color:green;"><b> On Time </b></p> <%}%>
 										</br>
 										</br>
 										</tr>
