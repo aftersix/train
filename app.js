@@ -14,6 +14,9 @@ var predictions = require('./routes/predictions');
 
 app.get('/',predictions.predictions);
 
+var train = require('./routes/train');
+app.get('/trains', train.predictions);
+
 
 var predictions = require('./routes/predictions');
 app.get('/predictions', predictions.predictions);

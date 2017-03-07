@@ -7,13 +7,13 @@
 		<div class="page-header">
 			<h1>
 				</br>
-				Train Times in Salem <small></small>
+				Train Times in <%= station %>  <small></small>
 			</h1>
 		</div>
 	
 		
 		<div class="panel panel-default">
-			<div class="panel-heading">Arrival times and predictions for Salem</div>
+			<div class="panel-heading">Arrival times and predictions for <%= station %> </div>
 			<div class="panel-body">
 			
 					<div class="row">
@@ -43,7 +43,7 @@
 					
 					</div>
 					<div class="col-md-6">
-						<h2>To Salem</td></h2>
+						<h2>To <%= station %> </td></h2>
 									<% 
 								   try { 
 										for(var i=0; i<salemSchedule['table'].length; i++) {
