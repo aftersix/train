@@ -30,7 +30,7 @@ var trainAlerts;
 									var difference = direction['trip'][l]['sch_arr_dt'] - direction['trip'][l]['pre_dt'];
 									difference = Math.abs(difference);
 									direction['trip'][l]['sch_arr_dt'] = Sugar.Date.format(Sugar.Date.create(direction['trip'][l]['sch_arr_dt']*1000)	,  '{hh}:{mm}');							
-									//direction['trip'][l]['pre_dt'] = Sugar.Date.format(Sugar.Date.create(direction['trip'][l]['pre_dt']*1000)	,  '{hh}:{mm}');
+									direction['trip'][l]['pre_dt'] = Sugar.Date.format(Sugar.Date.create(direction['trip'][l]['pre_dt']*1000)	,  '{hh}:{mm}');
 									salemSchedule.table.push({train_direction: route['direction'][k]['direction_name'], train_name: direction['trip'][l]['trip_name'], scheduleTime: direction['trip'][l]['sch_arr_dt'],predictedTime:direction['trip'][l]['pre_dt'],difference:difference});
 								} catch(err) {}
 							}
