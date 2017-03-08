@@ -56,7 +56,7 @@ var trainAlerts;
 	
 
 	Promise.all([salemPromise, alertPromise]).then(values => { 
-	  res.render('predictions', {title:'Train Times' , salemSchedule:salemSchedule , trainAlerts:trainAlerts});
+	  res.render('predictions', {title:'Train Times - BETA' , salemSchedule:salemSchedule , trainAlerts:trainAlerts});
 	  	});
 
 	

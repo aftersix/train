@@ -62,7 +62,7 @@ var trainAlerts;
 	
 
 	Promise.all([salemPromise, alertPromise]).then(values => { 
-	  res.render('train', {title:'Train Times' , salemSchedule:salemSchedule , trainAlerts:trainAlerts, station:req.param("station")});
+	  res.render('train', {title:'Train Times - BETA' , salemSchedule:salemSchedule , trainAlerts:trainAlerts, station:req.param("station")});
 	  	});
 
 	

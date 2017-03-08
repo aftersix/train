@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<% include header %>
+<body>
+	<% include navbar %>
+
+	<div class="container">
+		<div class="page-header">
+			<h1>
+				About
+			</h1>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">How to use</div>
+			<div class="panel-body">
+				<p>This is an experimental website project to provide a learning opportunity on how to create a webserver using modern frameworks and access APIs asynchronously.  I hope you find the website helpful, but I caution you to always have a backup website such as <a href=http://mbtatrains.com>mbtatrains.com</a> or the MBTA official twitter account. </p>
+				<p>This website is hosted by a third party and uses a public development key and therefore may be down or inaccurate at any time.  </p>
+			</div>
+		</div>
+
+		<hr>
+
+		<% include footer %>
+	</div>
+	<!-- /container -->
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#about').addClass("active");
+		});
+	</script>
+	<!-- Bootstrap core JavaScript
+    ================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script src="https://code.jquery.com/jquery.js"></script>
+	<!-- Latest compiled and minified JavaScript -->
+	<script
+		src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+</body>
+</html>
