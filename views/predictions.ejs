@@ -10,103 +10,129 @@
 				Train Times in Salem <small></small>
 			</h1>
 		</div>
-	
-		
+
+
 		<div class="panel panel-default">
 			<div class="panel-heading">Arrival times and predictions for Salem</div>
 			<div class="panel-body">
-			
+
 					<div class="row">
 						<div class="col-md-6">
 						<h2>To Boston</h2>
-						
-								  <% 
-								   try { 
+
+								  <%
+								   try {
 										for(var i=0; i<salemSchedule['table'].length; i++) {
-											if(salemSchedule['table'][i]['train_direction'] == "Inbound"){
+											if(salemSchedule['table'][i]['train_direction'] == 1){
+												var j = 0;
 									%>
 										<tr>
-											<td>Train No:<%= salemSchedule['table'][i]['train_name'] %></td></br>
-											<td>Scheduled Arrival: <%= salemSchedule['table'][i]['scheduleTime'] %> </td>
-											<% if(salemSchedule['table'][i]['difference'] > 300) {%>
-											<td><b><p style="color:red;">Now: <%= salemSchedule['table'][i]['predictedTime'] %> </p></td></b>
-											<% } else if (salemSchedule['table'][i]['difference'] > 60) { %>
-											<td><b><p style="color:orange;">Now: <%= salemSchedule['table'][i]['predictedTime'] %> </p></td></b>
-											<% } else if (salemSchedule['table'][i]['difference'] > -60) { %>
-											<p style="color:green;"><b> On Time </b></p>
-											<% } else { %>
-											<td><b><p style="color:green;"><u>Now: <%= salemSchedule['table'][i]['predictedTime'] %> </u></p></td></b>
-											<% } %> 
+											</br>
+
+
+											<td>Scheduled Arrival: <%= salemSchedule['table'][i]['predictedTime'] %> </td>
+											<% if(j==0) {%>
+			 								<script type="text/javascript">
+			 								 var timeleftB = <%= salemSchedule['table'][i]['timeLeft'] %> ;
+			 								 var timedisplay;
+			 								 var downloadTimer = setInterval(function(){
+			 								 if(timeleftB <= 0){
+			 								 clearInterval(downloadTimer);
+			 								 document.getElementById("countdown").innerHTML = "";
+			 								 } else {
+			 								 document.getElementById("countdown").innerHTML = "Train arrives in " + Math.round(timeleftB/60) + " minutes";
+			 								 }
+			 								 timeleftS -= 1;
+			 							 }, 1000);
+			 								</script>
+			 							<div id="countdown"></div>
+
+			 							<% }  %>
+
 										</br>
 										</br>
 										</tr>
-									<% 
+									<% ++j;
 											}
-										}	
+										}
 										} catch(err){}
 									%>
-					
+
 					</div>
 					<div class="col-md-6">
 						<h2>To Salem</td></h2>
-									<% 
-								   try { 
-										for(var i=0; i<salemSchedule['table'].length; i++) {
-											if(salemSchedule['table'][i]['train_direction'] == "Outbound"){
-									%>
-										<tr>
-											<td>Train No:<%= salemSchedule['table'][i]['train_name'] %></td></br>
-											<td>Scheduled Arrival: <%= salemSchedule['table'][i]['scheduleTime'] %> </td>
-											<% if(salemSchedule['table'][i]['difference'] > 300) {%>
-											<td><b><p style="color:red;">Now: <%= salemSchedule['table'][i]['predictedTime'] %> </p></td></b>
-											<% } else if (salemSchedule['table'][i]['difference'] > 60) { %>
-											<td><b><p style="color:orange;">Now: <%= salemSchedule['table'][i]['predictedTime'] %> </p></td></b>
-											<% } else if (salemSchedule['table'][i]['difference'] > -60) { %>
-											<p style="color:green;"><b> On Time </b></p>
-											<% } else { %>
-											<td><b><p style="color:green;"><u>Now: <%= salemSchedule['table'][i]['predictedTime'] %> </u></p></td></b>
-											<% } %> 
-										</br>
-										</br>
-										</tr>
-									<% 
-											}
-										}	
-										} catch(err){}
-									%>					
+						<%
+						try {
+						 for(var i=0; i<salemSchedule['table'].length; i++) {
+							 if(salemSchedule['table'][i]['train_direction'] == 0){
+								 var j = 0;
+					 %>
+						 <tr>
+							 </br>
+
+
+							 <td>Scheduled Arrival: <%= salemSchedule['table'][i]['predictedTime'] %> </td>
+							 <% if(j==0) {%>
+								<script type="text/javascript">
+								 var timeleftS = <%= salemSchedule['table'][i]['timeLeft'] %> ;
+								 var timedisplay;
+								 var downloadTimer = setInterval(function(){
+								 if(timeleftS <= 0){
+								 clearInterval(downloadTimer);
+								 document.getElementById("countdown1").innerHTML = "";
+								 } else {
+								 document.getElementById("countdown1").innerHTML = "Train arrives in " + Math.round(timeleftS/60) + " minutes";
+								 }
+								 timeleftS -= 1;
+							 }, 1000);
+								</script>
+							<div id="countdown1"></div>
+
+							<% }  %>
+
+
+
+						 </br>
+						 </br>
+						 </tr>
+					 <%
+				 } ++j;
+						 }
+						 } catch(err){}
+					 %>
 					</div>
 					<div class="col-md-12">
 						<h2>Alerts</h2>
-									<% 
-								   try { 
+									<%
+								   try {
 										for(var i=0; i<trainAlerts['alerts'].length; i++) {
-											
+
 									%>
 										<tr>
 										<td>	<%= trainAlerts['alerts'][i]['short_header_text'] %> </td>
 										</br>
 										</br>
 										</tr>
-									<% 
-											
-										}	
+									<%
+
+										}
 										} catch(err){}
-									%>		
-			
-									<!-- <p>Old trains content</p> 
-									
-											
+									%>
+
+									<!-- <p>Old trains content</p>
+
+
 										  <%=   %>
-										  
-										  <% 
-										  
-										   try { 
+
+										  <%
+
+										   try {
 												for(var i=0; i<salemSchedule['table'].length; i++) {
-											
+
 											%>
-													 
-											   
-											  
+
+
+
 											 <tr>
 												<td>Train No:<%= salemSchedule['table'][i]['train_direction'] %></td></br>
 											   <td>Train No:<%= salemSchedule['table'][i]['train_name'] %></td></br>
@@ -115,8 +141,8 @@
 											   </br>
 											   </br>
 											 </tr>
-											 <% 
-												} 
+											 <%
+												}
 												} catch(err){}
 													%>
 													--->
@@ -125,7 +151,7 @@
 
 		<hr>
 
-	<% include footer %>	
+	<% include footer %>
 	</div>
 	<!-- /container -->
 	<script type="text/javascript">

@@ -1,66 +1,91 @@
 var Sugar = require('sugar');
 var request = require('request');
 
+console.log("start");
+
+
 exports.predictions = function(req,res) {
 
 var salemSchedule = {table: [] };
-var trainAlerts;
+var trainAlerts = {table: []};
+
+
+
 
 	var salemPromise = new Promise((resolve, reject) => {
 		request({
-		url: 'http://realtime.mbta.com/developer/api/v2/predictionsbystop?api_key=wX9NwuHnZU2ToO7GmGR9uw&stop=Salem&format=json',
+		url: 'https://api-v3.mbta.com//predictions?filter[stop]=Salem',
 		json: true
 		},
+
 
 		 function (error, response, jsonObject) {
 		  if (!error && response.statusCode == 200) {
 			 try {
-					for (var i=0; i<jsonObject['mode'].length; i++){
-						var mode = jsonObject['mode'][i];
-						for (var j=0; j<mode['route'].length; j++){
-							var route = mode['route'][j];
-							for (var k=0; k<route['direction'].length; k++){
-								var direction = route['direction'][k];
-								for (var l=0; l<direction['trip'].length; l++){
-									var difference = direction['trip'][l]['sch_arr_dt'] - direction['trip'][l]['pre_dt'];
-									difference = Math.abs(difference);
-									direction['trip'][l]['sch_arr_dt'] = Sugar.Date.format(Sugar.Date.create(direction['trip'][l]['sch_arr_dt']*1000)	,  '{hh}:{mm}');
-									direction['trip'][l]['pre_dt'] = Sugar.Date.format(Sugar.Date.create(direction['trip'][l]['pre_dt']*1000)	,  '{hh}:{mm}');
-									salemSchedule.table.push({train_direction: route['direction'][k]['direction_name'], train_name: direction['trip'][l]['trip_name'], scheduleTime: direction['trip'][l]['sch_arr_dt'],predictedTime:direction['trip'][l]['pre_dt'],difference:difference});
-								}
-							}
-						}
-					  }
-				} catch(err){}
+				 		for (var i=0; i<jsonObject['data'].length; i++){
+
+						console.log(jsonObject);
+						//var obLength = jsonObject.length;
+						//console.log(obLength);
+						console.log("...");
+						//console.log(jsonObject['data'][0]);
+						var data = jsonObject['data'][i];
+						console.log("...");
+						console.log(data['attributes'].arrival_time);
+						console.log(data['attributes'].direction_id);
+						var att = data['attributes'];
+						console.log("++++");
+						var arrival = att.arrival_time;
+						console.log(arrival);
+						//var obLength = jsonObject['data'].length;
+						//console.log(obLength);
+						console.log("=======");
+						var newArrivalTime = arrival;
+						newArrivalTime = Sugar.Date.create(newArrivalTime);
+						console.log(newArrivalTime);
+						var timeLeft = (newArrivalTime - Sugar.Date.create())/1000;
+						newArrivalTime = Sugar.Date.format(newArrivalTime	,  '{hh}:{mm}')
+
+						console.log(timeLeft);
+						salemSchedule.table.push({train_direction: data['attributes'].direction_id, predictedTime: newArrivalTime, timeLeft: timeLeft});
+					}
+
+				} catch(err){console.log("error");}
 		  }
+			console.log("+=+=+=");
+			console.log(salemSchedule);
 		 resolve();
 		});
-	  });
+    });
 
-	var alertPromise = new Promise((resolve, reject) => {
-		request({
-		url: 'http://realtime.mbta.com/developer/api/v2/alertsbyroute?api_key=wX9NwuHnZU2ToO7GmGR9uw&route=CR-Newburyport&include_access_alerts=false&include_service_alerts=true&format=json',
-		json: true
-		},
+		var alertPromise = new Promise((resolve, reject) => {
+			request({
+			url: 'https://api-v3.mbta.com//alerts?filter[stop]=Salem',
+			json: true
+			},
 
-		function (error, response, trainAlert) {
-		  if (!error && response.statusCode == 200) {
-				for (var i=0; i<trainAlert['alerts'].length; i++){
+			function (error, response, trainAlert) {
+				if (!error && response.statusCode == 200) {
+					for (var i=0; i<trainAlert['data'].length; i++){
 
-					//console.log(trainAlert['alerts'][i]['short_header_text']);
-				 }
-		  }
-		trainAlerts = trainAlert;
-		resolve();
+						//console.log("train alert"+i);
+						//console.log(trainAlert['data'][i]);
+						data = trainAlert['data'][i];
+						var header = data['attributes'].header;
+						console.log(header);
+						trainAlerts.table.push({header: header});
+					 }
+				}
+				console.log("+=+=+=");
+				console.log (trainAlerts);
+			resolve();
+			});
 		});
-	});
 
-
-	Promise.all([salemPromise, alertPromise]).then(values => {
-	  res.render('predictions', {title:'Train Times - BETA' , salemSchedule:salemSchedule , trainAlerts:trainAlerts});
-	  	});
-
+		Promise.all([salemPromise, alertPromise]).then(values => {
+			res.render('predictions', {title:'Train Times - BETA' , salemSchedule:salemSchedule , trainAlerts:trainAlerts});
+				});
 
 
 
-};
+    };
