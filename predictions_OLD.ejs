@@ -32,8 +32,8 @@
 											</br>
 
 
-											<td>Predicted Arrival: <%= salemSchedule['table'][i]['predictedTime'] %> in <%= Math.round(salemSchedule['table'][i]['timeLeft']/60); %> minutes </td>
-										<%
+											<td>Predicted Arrival: <%= salemSchedule['table'][i]['predictedTime'] %> in <%= salemSchedule['table'][i]['timeLeft'] %> minutes </td>
+
 											}
 										}
 										} catch(err){}
@@ -52,8 +52,8 @@
 								</br>
 
 
-								<td>Predicted Arrival: <%= salemSchedule['table'][i]['predictedTime'] %> in <%= Math.round(salemSchedule['table'][i]['timeLeft']/60); %> minutes </td>
-						<%
+								<td>Predicted Arrival: <%= salemSchedule['table'][i]['predictedTime'] %> in <%= salemSchedule['table'][i]['timeLeft'] %> minutes </td>
+
 								}
 							}
 							} catch(err){}
@@ -62,23 +62,23 @@
 					</div>
 					<div class="col-md-12">
 						<h2>Alerts</h2>
-						<%
-						 try {
-							for(var i=0; i<trainAlerts['table'].length; i++) {
+									<%
+								   try {
+										for(var i=0; i<trainAlerts['alerts'].length; i++) {
 
-						%>
-							<tr>
-							<td>	<%= trainAlerts['table'][i]['header'] %> </td>
-							</br>
-							</br>
-							</tr>
-						<%
+									%>
+										<tr>
+										<td>	<%= trainAlerts['alerts'][i]['short_header_text'] %> </td>
+										</br>
+										</br>
+										</tr>
+									<%
 
-							}
-							} catch(err){}
-						%>
+										}
+										} catch(err){}
+									%>
 
-
+								
 			</div>
 		</div>
 
